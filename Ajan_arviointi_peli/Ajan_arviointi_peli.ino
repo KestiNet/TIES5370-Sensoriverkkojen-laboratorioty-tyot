@@ -1,12 +1,21 @@
-Serial.begin(9600);
 int pushButton = 2;
+int count = 0;
+int val;
+
 void setup()
 {
-  pinMode(2, INPUT);
+  Serial.begin(9600);
+  pinMode(pushButton, INPUT);
 }
 
 void loop()
 {
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(10); // Delay a little bit to improve simulation performance
-}
+ count = digitalRead(pushButton);{
+   Serial.println(count);
+    count++;
+ }
+ 
+
+ delay(10);
+ 
+  }
