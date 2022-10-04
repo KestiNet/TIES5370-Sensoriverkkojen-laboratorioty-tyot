@@ -1,36 +1,20 @@
-const int buttonPin = 2;     
-unsigned long time2;
-int pAika;
-int Aaika;
-int kesto;
-int buttonState = 0;         
-unsigned long interval;
-int painallus = 0;
-int aika [4];
-byte ajastin;
+int buttonp = 0;
 
-
-void setup() {
-  pinMode(buttonPin, INPUT_PULLUP);
+void setup(){
   Serial.begin(9600);
+  pinMode(2, INPUT);
+  digitalWrite(2, LOW);
+  attachInterrupt(2, button1, FALLING);
 }
 
-void loop() {
-  //buttonState = digitalRead(buttonPin);
-  if(ajastin == 0 && digitalRead(buttonPin) == LOW){
-  Aaika = millis();
-  ajastin = 1;
-  }
+void loop(){
   
-  if (ajastin == 1 && digitalRead(buttonPin) == HIGH && painallus <= 4) {   
-    pAika = millis();
-    ajastin = 0;
-    kesto = Aaika - pAika;
-    if(buttonState == LOW) buttonState = digitalRead(buttonPin);
-    buttonState = HIGH;
-    painallus++;
-    Serial.println(painallus);
-    Serial.println(kesto);
-  } 
+}
 
+void button1(){
+  
+  while(buttonp <=4){
+    buttonp++;
+    Serial.println(buttonp);
+  }
 }
