@@ -4,6 +4,7 @@ int laskuri = 0;
 int aloitusAika;
 int lopetusAika;
 int kesto;
+int sekuntti;
 
 void setup()
 {
@@ -13,8 +14,7 @@ void setup()
 }
 
 
-void loop() 
-{
+void loop() {
   if (buttonPushed && laskuri <=4)
   {
     delay(10);  // debounce time
@@ -23,10 +23,11 @@ void loop()
     laskuri++;
 
    Serial.println(laskuri);
-  }
-  if (laskuri == 4){
-    tulostus();
-  }
+   tulostus();
+  }  
+}
+void laskin(){
+  
 }
 
 void buttonISR()
@@ -34,5 +35,14 @@ void buttonISR()
   buttonPushed = true;
 }
 void tulostus(){
-  Serial.println("Tavoiteaika oli 20 s.");
+  sekuntti = aloitusAika / 1000;
+  kesto = 20-sekuntti;
+  if(laskuri == 5){
+  Serial.print("Tavoiteaika oli 20 s. Sait tuloksesti ");
+  Serial.print(sekuntti);
+  Serial.print(" sekunttia, eli virheesi oli  ");
+  Serial.print(kesto);
+  Serial.print(" sekunttia.");
+
+}
 }
