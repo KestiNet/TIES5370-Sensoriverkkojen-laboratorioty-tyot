@@ -9,6 +9,7 @@ int kestoAika;
 int sekuntti;
 int talletus[4];
 byte indeksi =0;
+int aika;
 
 void setup()
 {
@@ -23,32 +24,36 @@ void setup()
 
 
 void loop() {
-  if (buttonPushed && laskuri <=4)
-  {
+   if (buttonPushed && laskuri <=4){
     delay(10);  // debounce time
+    //aika = millis();
     aloitusAika = millis();
-    kestoAika = aloitusAika - lopetusAika;
-    talletus[laskuri] = kestoAika;
-    if(kesto >= jakso){
-      lopetusAika = lopetusAika + kesto;
+    //kestoAika = aika - lopetusAika;
+    talletus[laskuri] = aloitusAika;
+    //if(kesto >= jakso){
+      //lopetusAika = millis();
+      //lopetusAika = lopetusAika + kesto;
      // talletus[] = talletus +1;
-     
-    }
-    buttonPushed = false;
-    laskuri++;
+       laskuri++;
 
    Serial.println(laskuri);
    tulostus();
-  }  
-}
-void laskin(){
+    }
+    buttonPushed = false;
   
-}
+  } 
+  
+
+
+
 
 void buttonISR()
 {
   buttonPushed = true;
 }
+
+
+
 void tulostus(){
   sekuntti = aloitusAika / 1000;
   kesto = 20-sekuntti;
@@ -59,10 +64,9 @@ void tulostus(){
   Serial.print(kesto);
   Serial.print(" sekunttia.");
 
-for(int i = 0; i < 5; i++)
-{
+for(int i = 0; i < 5; i++){
   Serial.println("new print:   ");
-  Serial.println(talletus[i]);
+  Serial.println(talletus[i]/1000);
 }
 }
 }
