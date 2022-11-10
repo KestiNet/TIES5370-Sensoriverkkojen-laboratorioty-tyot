@@ -1,47 +1,50 @@
-int buttonPin =2;
-volatile bool buttonPushed = false;
-int laskuri = 0;
-int aloitusAika;
-int lopetusAika;
-int oikeaAika;
+constexpr uint8_t buttonPin = 2;
+constexpr uint8_t desired_presses = 1;
+volatile uint32_t aloitusAika;
+volatile uint32_t lopetusAika;
+volatile uint32_t oikeaAika;
 int talletus[4];
-byte timerRunning;
+
+volatile uint8_t counter = 0;
+int laskuri = 0;
 
 void setup() {
-attachInterrupt(digitalPinToInterrupt(2), buttonISR, CHANGE);
+    Serial.begin(9600);
+    pinMode(buttonPin, INPUT_PULLUP);
+    attachInterrupt(digitalPinToInterrupt(buttonPin), buttonISR, FALLING);
 }
 
 void loop() {
-if (buttonPushed && laskuri <= 4 && timerRunning == 0){
-  delay(10);
-  aloitusAika = millis();
-  timerRunning = 1;
-}
-if (timerRunning == 1 && buttonPushed){
-  timerRunning = 0;
-  lopetusAika = millis();
-  oikeaAika = lopetusAika - aloitusAika;
-  talletus[laskuri] = oikeaAika;
-  Serial.println(oikeaAika);
-  laskuri++;
-  Serial.println(laskuri);
-  
-  if (laskuri == 5){
-    tulostus(); 
-  
-    }    
-  }
-
-buttonPushed = false;
+    if (aloitusAika && lopetusAika) {
+        // minus stop and start for time
+        oikeaAika = lopetusAika - aloitusAika;
+        Serial.println(laskuri);
+        Serial.print("Time between presses = ");
+        Serial.println(oikeaAika);
+        aloitusAika = 0;
+        lopetusAika = 0;
+        laskuri++;
+    }
 }
 
-void buttonISR(){
-  buttonPushed = true;
-}
+void buttonISR() {
+    static uint32_t last_interrupt_time = 0;
+    const uint32_t interrupt_time = millis();
 
-void tulostus(){
-  Serial.print("aika oli:   ");
-for(int i = 0; i < 5; i++){
-  Serial.println(talletus[i]);
-}
+    if (interrupt_time - last_interrupt_time > 100) {
+        if (!aloitusAika) {
+            aloitusAika = millis();
+            counter++;
+        }
+        else if (counter == desired_presses) {
+            lopetusAika = millis();
+            counter = 0;
+        }
+        else {
+            counter++;
+        }
+
+    }
+
+    last_interrupt_time = interrupt_time;
 }
