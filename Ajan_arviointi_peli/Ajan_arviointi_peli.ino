@@ -11,7 +11,7 @@ int laskuri = 0;
 void setup() {
     Serial.begin(9600);
     pinMode(buttonPin, INPUT_PULLUP);
-    attachInterrupt(digitalPinToInterrupt(buttonPin), buttonISR, FALLING);
+    attachInterrupt(digitalPinToInterrupt(buttonPin), buttonISR, RISING);
 }
 
 void loop() {
