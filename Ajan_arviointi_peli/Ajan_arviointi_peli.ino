@@ -1,12 +1,13 @@
 constexpr uint8_t buttonPin = 2;
-constexpr uint8_t desired_presses = 1;
+constexpr uint8_t painallukset = 1;
 volatile uint32_t aloitusAika;
 volatile uint32_t lopetusAika;
 volatile uint32_t oikeaAika;
 int talletus[4];
+long summa = 0;
 
-volatile uint8_t counter = 0;
-int laskuri = 0;
+volatile uint8_t laskin = 0;
+byte laskuri = 1;
 
 void setup() {
     Serial.begin(9600);
@@ -15,16 +16,33 @@ void setup() {
 }
 
 void loop() {
+  
     if (aloitusAika && lopetusAika) {
         // minus stop and start for time
-        oikeaAika = lopetusAika - aloitusAika;
+        //oikeaAika = lopetusAika - aloitusAika;
         Serial.println(laskuri);
-        Serial.print("Time between presses = ");
-        Serial.println(oikeaAika);
+        //Serial.print("Time between presses = ");
+        //Serial.println(oikeaAika/1000);
+        talletus[oikeaAika] = lopetusAika - aloitusAika;
         aloitusAika = 0;
         lopetusAika = 0;
         laskuri++;
     }
+    if (laskuri == 5){
+      unsigned int index;
+      for(index = 0; index < sizeof(talletus); index++) { 
+        summa += talletus[index]; 
+        }
+      tulosta();
+    }
+}
+
+void tulosta(){
+  
+  Serial.print("Tavoiteaika oli 20 s. Sait tulokseksi: ");
+  Serial.print(summa);
+  Serial.print(" , eli virheesi oli ");
+  Serial.print("tulostaa 20sek - yhteenlasketun tuloksen");
 }
 
 void buttonISR() {
@@ -34,14 +52,14 @@ void buttonISR() {
     if (interrupt_time - last_interrupt_time > 100) {
         if (!aloitusAika) {
             aloitusAika = millis();
-            counter++;
+            laskin++;
         }
-        else if (counter == desired_presses) {
+        else if (laskin == painallukset) {
             lopetusAika = millis();
-            counter = 0;
+            laskin = 0;
         }
         else {
-            counter++;
+            laskin++;
         }
 
     }
