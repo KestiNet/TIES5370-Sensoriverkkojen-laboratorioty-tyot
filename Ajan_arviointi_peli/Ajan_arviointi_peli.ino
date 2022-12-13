@@ -16,33 +16,37 @@ void setup() {
 }
 
 void loop() {
-  
-    if (aloitusAika && lopetusAika) {
+    if (laskuri < 6 &&(aloitusAika && lopetusAika)) {
         // minus stop and start for time
         //oikeaAika = lopetusAika - aloitusAika;
         Serial.println(laskuri);
         //Serial.print("Time between presses = ");
         //Serial.println(oikeaAika/1000);
-        talletus[oikeaAika] = lopetusAika - aloitusAika;
+        talletus[laskuri] = (lopetusAika - aloitusAika);
         aloitusAika = 0;
         lopetusAika = 0;
         laskuri++;
-    }
-    if (laskuri == 5){
-      unsigned int index;
-      for(index = 0; index < sizeof(talletus); index++) { 
-        summa += talletus[index]; 
-        }
+    
+      if (laskuri == 6){
+      
       tulosta();
     }
 }
-
+}
 void tulosta(){
-  
+  unsigned int i;
+      for(i = 0; i < 5; i++) { 
+        summa += talletus[i]; 
+        }
+     
   Serial.print("Tavoiteaika oli 20 s. Sait tulokseksi: ");
-  Serial.print(summa);
+  Serial.print(summa/1000);
   Serial.print(" , eli virheesi oli ");
-  Serial.print("tulostaa 20sek - yhteenlasketun tuloksen");
+  Serial.print(20 - summa/1000);
+  Serial.println(" Painallusten keskiarvo oli ");
+  Serial.print((summa/1000)/5);
+  Serial.print(" sekunttia");
+
 }
 
 void buttonISR() {
