@@ -44,10 +44,41 @@ void tulosta(){
   Serial.print(" , eli virheesi oli ");
   Serial.print(20 - summa/1000);
   Serial.println(" Painallusten keskiarvo oli ");
-  Serial.print((summa/1000)/5);
+  Serial.print(keskiArvo);
   Serial.print(" sekunttia");
 
 }
+
+float mean = keskiArvo();
+float std = keskiHajonta();
+
+//Keskiarvon laskeminen
+float keskiArvo() {
+  long total = 0;
+  for (int i = 0; i < 5; i++) {
+    total = total + talletus[i];
+  }
+  float keskiA = total/(float)5;
+  return keskiA;
+}
+
+/*
+ * Get the standard deviation from an array of ints
+ https://forum.arduino.cc/t/get-the-standard-deviation-of-array/477539/8
+ */
+float keskiHajonta() {
+  float keski = keskiArvo();
+  long total = 0;
+  for (int i = 0; i < 5; i++) {
+    total = total + (talletus[i] - keski) * (talletus[i] - keski);
+  }
+
+  float variance = total/(float)5;
+  float keskiH = sqrt(variance);
+  return keskiH;
+}
+
+
 
 void buttonISR() {
     static uint32_t last_interrupt_time = 0;
