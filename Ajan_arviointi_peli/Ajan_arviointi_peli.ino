@@ -44,7 +44,7 @@ void tulosta(){
   Serial.print(" , eli virheesi oli ");
   Serial.print(20 - summa/1000);
   Serial.println(" Painallusten keskiarvo oli ");
-  Serial.print(keskiArvo);
+  Serial.print(mean);
   Serial.print(" sekunttia");
 
 }
