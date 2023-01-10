@@ -1,34 +1,36 @@
 int led = 10;
 int b1 = 3;
 int b2 = 2;
-boolean waspressed = false;
+int himmennys = 5;
+int kirkastuu = 5;
+int kirkkaus = 0;
 
-int inertia = 10;
 
 void setup (){ 
   pinMode(b1,INPUT);
+  pinMode(b2,INPUT);
   pinMode(led,OUTPUT);
-  analogWrite(led,0);
+  
 }
 
 void loop(){
+  analogWrite(led, kirkkaus);
   if(digitalRead(b1) == HIGH){
-    waspressed = true;
-  }else{
-     if (waspressed == true){
-       fadeLed(digitalRead(led), inertia);
-       waspressed = false;
-     }
+    kirkkaus = kirkkaus + kirkastuu;
+    delay(50);
   }
 }
+  
+//https://arduino.stackexchange.com/questions/22128/led-fading-effect-using-a-push-button
+//https://wiki-content.arduino.cc/en/Tutorial/BuiltInExamples/Fade
 
-void fadeLed(boolean input, int inertia){
-  for(int state=0;state<256;state++){
-    if (input==LOW){
-      analogWrite(led, state);
-    }else{
-      analogWrite(led, 255-state);
-    }
-    delay(inertia);
-  }
-}
+//void fadeLed(boolean input, int inertia){
+  //for(int state=0;state<256;state++){
+    //if (input==LOW){
+      //analogWrite(led, state);
+    //}else{
+      //analogWrite(led, 255-state);
+    //}
+    //delay(inertia);
+  //}
+//}
