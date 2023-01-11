@@ -1,36 +1,43 @@
-int led = 10;
+/*
+  Fade
+
+  This example shows how to fade an LED on pin 9 using the analogWrite()
+  function.
+
+  The analogWrite() function uses PWM, so if you want to change the pin you're
+  using, be sure to use another PWM capable pin. On most Arduino, the PWM pins
+  are identified with a "~" sign, like ~3, ~5, ~6, ~9, ~10 and ~11.
+
+  This example code is in the public domain.
+
+  http://www.arduino.cc/en/Tutorial/Fade
+*/
+
+int led = 10;           // the PWM pin the LED is attached to
+int kirkkaus = 0;    // how bright the LED is
+int muutos = 5;    // how many points to fade the LED by
 int b1 = 3;
 int b2 = 2;
-int himmennys = 5;
-int kirkastuu = 5;
-int kirkkaus = 0;
 
+// the setup routine runs once when you press reset:
+void setup() {
+    attachInterrupt(digitalPinToInterrupt(b1), kirkastaa, RISING);
+    attachInterrupt(digitalPinToInterrupt(b2), himmentaa, RISING);
+    pinMode(led, OUTPUT);
+}
 
-void setup (){ 
-  pinMode(b1,INPUT);
-  pinMode(b2,INPUT);
-  pinMode(led,OUTPUT);
+// the loop routine runs over and over again forever:
+void loop() {
   
 }
 
-void loop(){
+void kirkastaa(){
   analogWrite(led, kirkkaus);
-  if(digitalRead(b1) == HIGH){
-    kirkkaus = kirkkaus + kirkastuu;
-    delay(50);
-  }
-}
-  
-//https://arduino.stackexchange.com/questions/22128/led-fading-effect-using-a-push-button
-//https://wiki-content.arduino.cc/en/Tutorial/BuiltInExamples/Fade
 
-//void fadeLed(boolean input, int inertia){
-  //for(int state=0;state<256;state++){
-    //if (input==LOW){
-      //analogWrite(led, state);
-    //}else{
-      //analogWrite(led, 255-state);
-    //}
-    //delay(inertia);
-  //}
-//}
+  // change the brightness for next time through the loop:
+  kirkkaus = kirkkaus + muutos;
+}
+
+void himmentaa(){
+
+}
