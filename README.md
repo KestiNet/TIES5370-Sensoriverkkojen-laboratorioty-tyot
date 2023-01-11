@@ -1,3 +1,3 @@
 # TIES5370 Sensoriverkkojen laboratoriotyöt
  
-Assignments for Sensornetwork lab work
+Assignments for sensor network lab work
