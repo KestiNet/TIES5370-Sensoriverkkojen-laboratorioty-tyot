@@ -18,6 +18,8 @@ int kirkkaus = 0;    // how bright the LED is
 int muutos = 5;    // how many points to fade the LED by
 int b1 = 3;
 int b2 = 2;
+bool k = false;
+bool h = false;
 
 // the setup routine runs once when you press reset:
 void setup() {
@@ -28,16 +30,33 @@ void setup() {
 
 // the loop routine runs over and over again forever:
 void loop() {
-  
-}
+  if (k == true){
+    analogWrite(led, kirkkaus);
+    kirkkaus = kirkkaus + muutos;
+  }
+  delay(50);
 
-void kirkastaa(){
+
+if (h == true){
   analogWrite(led, kirkkaus);
-
-  // change the brightness for next time through the loop:
-  kirkkaus = kirkkaus + muutos;
+  kirkkaus = kirkkaus - muutos;
+}
+}
+void kirkastaa(){
+  k = true;
+  //analogWrite(led, kirkkaus);
+  //for (kirkkaus = 0; kirkkaus < 255; kirkkaus++){
+    //kirkkaus = kirkkaus + muutos;
+  //}
+  
+  //delay(50);
 }
 
 void himmentaa(){
+analogWrite(led, 255);  
+   h == true;
+  //analogWrite(led, kirkkaus);
+
+  //kirkkaus = kirkkaus-muutos;
 
 }
