@@ -12,24 +12,37 @@ const int nopeaPainallus = 500;
 
 unsigned long painettuAika = 0;
 unsigned long vapautettuAika = 0;
+int nykyinen;
+int viimeinenTila = LOW;
 
 void setup(){
-    attachInterrupt(digitalPinToInterrupt(b1), painallus, RISING);
+    attachInterrupt(digitalPinToInterrupt(b1), painallus, INPUT_PULLUP);
     pinMode(led, OUTPUT);
     
   
 }
-unsigned long vapautettuAika = 0;
+
 //https://arduinogetstarted.com/tutorials/arduino-button-long-press-short-press
 //more instructions here
 
 void loop(){
 
-  
-}
+   //nykyinen = digitalRead(BUTTON_PIN);
 
+  if((k == true)&&(viimeinenTila == HIGH && nykyinen == LOW))        // button is pressed
+    painettuAika = millis();
+  else if(viimeinenTila == LOW && nykyinen == HIGH) { // button is released
+    vapautettuAika = millis();
+
+    long painoAika = vapautettuAika - painettuAika;
+
+    if( painoAika < nopeaPainallus ){
+      analogWrite(led, 127);
+    }
+}
+}
 //keskeytys funktio jota kutsutaan kun nappia b1 painetaan
-void kirkastaa(){
+void painallus(){
   k = true;
 
 }
