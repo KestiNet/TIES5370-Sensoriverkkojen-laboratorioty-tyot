@@ -8,7 +8,8 @@ Kun ledi on jossain muussa tilassa kuin sammuksissa niin napin nopea painallus s
 
 // constants won't change. They're used here to set pin numbers:
 const int b1 = 3; // the number of the pushbutton pin
-const int katko = 500; // 500 milliseconds
+const int lyhyt = 500; // 500 milliseconds
+const int pitka = 1000;
 int led = 10;
 
 // Variables will change:
@@ -16,6 +17,9 @@ int aiempiPainallus = LOW;  // the previous state from the input pin
 int nykyinenPainallus;     // the current reading from the input pin
 unsigned long painettuAika  = 0;
 unsigned long vapautettuAika = 0;
+
+bool pohjassa = false
+bool pitkaPainallus = false;
 
 
 void setup() {
@@ -42,7 +46,7 @@ void painallus(){
 
     long kesto = vapautettuAika - painettuAika;
 
-    if( kesto < katko )
+    if( kesto < lyhyt )
       analogWrite(led, 127);
       Serial.println("painettu");
   }
@@ -52,7 +56,7 @@ void painallus(){
 
 
 }
-
+/*
   currentState = digitalRead(BUTTON_PIN);
 
   if(lastState == HIGH && currentState == LOW) {        // button is pressed
@@ -74,3 +78,4 @@ void painallus(){
 
   // save the the last state
   lastState = currentState;
+  */
