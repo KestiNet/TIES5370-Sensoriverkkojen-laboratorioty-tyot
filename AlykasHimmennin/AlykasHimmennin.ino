@@ -1,6 +1,7 @@
 /*
 * Muutetaan edellisessä tehtävässä toteutettua himmennintä siten, että nyt käytössä on vain yksi painike(B1). 
 Kun systeemi käynnistetään, niin led on sammuksissa ja napin nopea painallus sytyttää ledin 50% kirkkauteen maksimistaan. 
+
 Tämän jälkeen, kun painikkeen painaa alas, niin led lähtee kirkastumaan aina 5% 50 millisekunnin välein niin kauan, kun painike on pohjassa.
 Kun painike vapautetaan ja painetaanuudestaan alas, niin led himmenee vastaavasti, eli joka toinen pitkä painallus himmentää ja joka toinen kirkastaa. 
 Kun ledi on jossain muussa tilassa kuin sammuksissa niin napin nopea painallus sammuttaa ledinja vastaavasti kun led on sammuksissa niin napin nopea painallus sytyttää ledin siihen 50%:n kirkkauteen.Kommentoi koodisi
@@ -11,14 +12,18 @@ const int b1 = 3; // the number of the pushbutton pin
 const int lyhyt = 500; // 500 milliseconds
 const int pitka = 1000;
 int led = 10;
+int muutos = 5;
+int kirkkaus;
+int puoliKirkkaus = 127;
 
 // Variables will change:
 int aiempiPainallus = LOW;  // the previous state from the input pin
 int nykyinenPainallus;     // the current reading from the input pin
 unsigned long painettuAika  = 0;
 unsigned long vapautettuAika = 0;
+int nappi;
 
-bool pohjassa = false
+bool pohjassa = false;
 bool pitkaPainallus = false;
 
 
@@ -29,8 +34,14 @@ void setup() {
 }
 
 void loop() {
-  
-}
+ if (digitalRead(b1) == HIGH){
+   kirkkaus = kirkkaus + muutos;
+   analogWrite(led, kirkkaus);
+   delay(50);
+ }
+
+}  
+ 
 /*
 keskeytysfunktio napin painallukselle
 Mittaa aikaa napin painalluksesta ja jos on nopea painallus, ledi syttyy 50% kirkkauteen
@@ -47,7 +58,7 @@ void painallus(){
     long kesto = vapautettuAika - painettuAika;
 
     if( kesto < lyhyt )
-      analogWrite(led, 127);
+      analogWrite(led, puoliKirkkaus);
       Serial.println("painettu");
   }
 
