@@ -1,53 +1,50 @@
 /*
-* Muutetaan edellisessä tehtävässä toteutettua himmennintä siten, että nyt käytössä on vain yksi painike(B1). 
-Kun systeemi käynnistetään, niin led on sammuksissa ja napin nopea painallus sytyttää ledin 50% kirkkauteen maksimistaan. 
-
 Tämän jälkeen, kun painikkeen painaa alas, niin led lähtee kirkastumaan aina 5% 50 millisekunnin välein niin kauan, kun painike on pohjassa.
 Kun painike vapautetaan ja painetaanuudestaan alas, niin led himmenee vastaavasti, eli joka toinen pitkä painallus himmentää ja joka toinen kirkastaa. 
 Kun ledi on jossain muussa tilassa kuin sammuksissa niin napin nopea painallus sammuttaa ledinja vastaavasti kun led on sammuksissa niin napin nopea painallus sytyttää ledin siihen 50%:n kirkkauteen.Kommentoi koodisi
 */
 
-// constants won't change. They're used here to set pin numbers:
-const int b1 = 3; // the number of the pushbutton pin
-const int lyhyt = 500; // 500 milliseconds
-const int pitka = 1000;
-int led = 10;
-int muutos = 5;
-int kirkkaus;
+const int b1 = 3;
+const int led = 10;
+
 int puoliKirkkaus = 127;
+int lyhyt = 500;
+int pitkaPainallus = 2000;
+int muutos = 5;
 
-// Variables will change:
-int aiempiPainallus = LOW;  // the previous state from the input pin
-int nykyinenPainallus;     // the current reading from the input pin
-unsigned long painettuAika  = 0;
+//Keskeytyksen parametrit
+int aiempiPainallus = LOW;
+int nykyinenPainallus;
+
+bool keskeytysTapahtui = false;
+
+int pk = LOW;
+int nk = LOW;
+
+unsigned long painettuKirkkaus = 0;
+
+unsigned long painettuAika = 0;
 unsigned long vapautettuAika = 0;
-int nappi;
-
-bool pohjassa = false;
-bool pitkaPainallus = false;
-
 
 void setup() {
-  Serial.begin(9600);
+ Serial.begin(9600);
   attachInterrupt(digitalPinToInterrupt(b1), painallus, INPUT_PULLUP);
   pinMode(led, OUTPUT);
 }
 
 void loop() {
- if (digitalRead(b1) == HIGH){
-   kirkkaus = kirkkaus + muutos;
-   analogWrite(led, kirkkaus);
-   delay(50);
- }
+  keskeytysTapahtui = false;
+  
+  
+}
 
-}  
- 
 /*
 keskeytysfunktio napin painallukselle
 Mittaa aikaa napin painalluksesta ja jos on nopea painallus, ledi syttyy 50% kirkkauteen
-
 */
+
 void painallus(){
+  keskeytysTapahtui = true;
   nykyinenPainallus = digitalRead(b1);
 
   if(aiempiPainallus == HIGH && nykyinenPainallus == LOW)        // button is pressed
@@ -64,29 +61,4 @@ void painallus(){
 
   aiempiPainallus = nykyinenPainallus;
 
-
-
 }
-/*
-  currentState = digitalRead(BUTTON_PIN);
-
-  if(lastState == HIGH && currentState == LOW) {        // button is pressed
-    pressedTime = millis();
-    isPressing = true;
-    isLongDetected = false;
-  } else if(lastState == LOW && currentState == HIGH) { // button is released
-    isPressing = false;
-  }
-
-  if(isPressing == true && isLongDetected == false) {
-    long pressDuration = millis() - pressedTime;
-
-    if( pressDuration > LONG_PRESS_TIME ) {
-      Serial.println("A long press is detected");
-      isLongDetected = true;
-    }
-  }
-
-  // save the the last state
-  lastState = currentState;
-  */
