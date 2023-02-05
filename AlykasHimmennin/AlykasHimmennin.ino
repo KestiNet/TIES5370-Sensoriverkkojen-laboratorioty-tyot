@@ -6,45 +6,56 @@ Kun ledi on jossain muussa tilassa kuin sammuksissa niin napin nopea painallus s
 
 const int b1 = 3;
 const int led = 10;
+const int PITKA_PAINALLUS = 1000;
+const int muutos = 5;
+int kirkkaus = 0;
 
-int puoliKirkkaus = 127;
-int lyhyt = 500;
-int pitkaPainallus = 2000;
-int muutos = 5;
+int viimeinenTila = LOW;
+int nykyinenTila;
 
-//Keskeytyksen parametrit
-int aiempiPainallus = LOW;
-int nykyinenPainallus;
+unsigned long nykyinenPainallus = 0;
+unsigned long vapautettuPainallus;
+long painonKesto;
 
-bool keskeytysTapahtui = false;
-
-int pk = LOW;
-int nk = LOW;
-
-unsigned long painettuKirkkaus = 0;
-
-unsigned long painettuAika = 0;
-unsigned long vapautettuAika = 0;
+bool painaa = false;
+bool pitkaPainallusHavaittu = false;
 
 void setup() {
  Serial.begin(9600);
-  attachInterrupt(digitalPinToInterrupt(b1), painallus, INPUT_PULLUP);
   pinMode(led, OUTPUT);
+  pinMode(b1, INPUT_PULLUP);
 }
 
 void loop() {
-  keskeytysTapahtui = false;
   
+  nykyinenTila = digitalRead(b1);
   
+  if (viimeinenTila == HIGH && nykyinenTila == LOW){
+    nykyinenPainallus = millis();
+    painaa = true;
+    pitkaPainallusHavaittu = false;
+
+  }else if (viimeinenTila == LOW && nykyinenTila == HIGH){
+    painaa = false;
+
+  }
+
+  if (painaa == true && pitkaPainallusHavaittu == false){
+    painonKesto = millis() - nykyinenPainallus;
+
+    if (painonKesto > PITKA_PAINALLUS){
+      kirkkaus = kirkkaus + muutos;
+      analogWrite(led, kirkkaus);
+      Serial.println("testi");
+      pitkaPainallusHavaittu = true;
+    }       
+
+  }
+viimeinenTila = nykyinenTila;
 }
 
-/*
-keskeytysfunktio napin painallukselle
-Mittaa aikaa napin painalluksesta ja jos on nopea painallus, ledi syttyy 50% kirkkauteen
-*/
 
 void painallus(){
-  keskeytysTapahtui = true;
   nykyinenPainallus = digitalRead(b1);
 
   if(aiempiPainallus == HIGH && nykyinenPainallus == LOW)        // button is pressed
