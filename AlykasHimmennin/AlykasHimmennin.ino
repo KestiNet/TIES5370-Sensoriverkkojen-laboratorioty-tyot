@@ -9,6 +9,7 @@ const int led = 10;
 const int PITKA_PAINALLUS = 1000;
 const int muutos = 5;
 int kirkkaus = 0;
+int tavoiteKirkkaus = 255;
 
 int viimeinenTila = LOW;
 int nykyinenTila;
@@ -19,11 +20,12 @@ long painonKesto;
 
 bool painaa = false;
 bool pitkaPainallusHavaittu = false;
+bool kierrattaja = false;
 
 void setup() {
  Serial.begin(9600);
   pinMode(led, OUTPUT);
-  pinMode(b1, INPUT_PULLUP);
+  pinMode(b1, INPUT);
 }
 
 void loop() {
@@ -44,32 +46,27 @@ void loop() {
     painonKesto = millis() - nykyinenPainallus;
 
     if (painonKesto > PITKA_PAINALLUS){
-      kirkkaus = kirkkaus + muutos;
-      analogWrite(led, kirkkaus);
-      Serial.println("testi");
-      pitkaPainallusHavaittu = true;
+      pitkaPainallusHavaittu = true;            
+      kirkastaja();
     }       
 
   }
 viimeinenTila = nykyinenTila;
 }
 
+/*aliohjelma joka tarkistaa onko nappi pohjassa ja onko pitkaPainallusHavaittu tosi
+  for silmukka määrittää kirkkauden muutoksen ja kasvattaa kirkkautta 5% 50millisekunnin välein
+*/
+void kirkastaja(){
 
-void painallus(){
-  nykyinenPainallus = digitalRead(b1);
+  if ((painonKesto > PITKA_PAINALLUS) && (pitkaPainallusHavaittu == true)){
+      kirkkaus = kirkkaus + muutos;
+      for (kirkkaus = 0; kirkkaus < tavoiteKirkkaus; kirkkaus++){
+      
+      analogWrite(led, kirkkaus);
+      Serial.println("testi");
+      delay(50);
+      }
 
-  if(aiempiPainallus == HIGH && nykyinenPainallus == LOW)        // button is pressed
-    painettuAika = millis();
-  else if(aiempiPainallus == LOW && nykyinenPainallus == HIGH) { // button is released
-    vapautettuAika = millis();
-
-    long kesto = vapautettuAika - painettuAika;
-
-    if( kesto < lyhyt )
-      analogWrite(led, puoliKirkkaus);
-      Serial.println("painettu");
-  }
-
-  aiempiPainallus = nykyinenPainallus;
-
+    }  
 }
