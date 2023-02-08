@@ -78,6 +78,11 @@ void kirkastajaTaiHimmentaja(){
       }
 
     }  
+    /*
+    samaan aliohjelmaan logiikka jolla voidaan havaita joka toinen napin painallus ja himmentää lediä sitä mukaan
+    himmentäminen ei toimi vielä, tarvitsee lisää työtä
+    TODO: mieti miten vähennetään kirkkautta 
+    */
   if((painonKesto > PITKA_PAINALLUS) && (pitkaPainallusHavaittu == true) && (vaihtaja % 2 == 1)){
     kirkkaus = kirkkaus - muutos;
       for (kirkkaus = 255; kirkkaus > tavoiteKirkkaus; kirkkaus--){
