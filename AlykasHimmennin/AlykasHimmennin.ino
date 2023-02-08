@@ -21,6 +21,8 @@ long painonKesto;
 bool painaa = false;
 bool pitkaPainallusHavaittu = false;
 bool kierrattaja = false;
+int vaihtaja = 0;
+int luku = 0;
 
 void setup() {
  Serial.begin(9600);
@@ -46,9 +48,15 @@ void loop() {
     painonKesto = millis() - nykyinenPainallus;
 
     if (painonKesto > PITKA_PAINALLUS){
-      pitkaPainallusHavaittu = true;            
-      kirkastaja();
-    }       
+      pitkaPainallusHavaittu = true;
+                 
+      kirkastajaTaiHimmentaja();
+      
+      vaihtaja++;  
+      
+    }  
+
+        
 
   }
 viimeinenTila = nykyinenTila;
@@ -57,16 +65,26 @@ viimeinenTila = nykyinenTila;
 /*aliohjelma joka tarkistaa onko nappi pohjassa ja onko pitkaPainallusHavaittu tosi
   for silmukka määrittää kirkkauden muutoksen ja kasvattaa kirkkautta 5% 50millisekunnin välein
 */
-void kirkastaja(){
+void kirkastajaTaiHimmentaja(){
 
-  if ((painonKesto > PITKA_PAINALLUS) && (pitkaPainallusHavaittu == true)){
+  if ((painonKesto > PITKA_PAINALLUS) && (pitkaPainallusHavaittu == true) && (vaihtaja % 2 == 0)){
+    
       kirkkaus = kirkkaus + muutos;
       for (kirkkaus = 0; kirkkaus < tavoiteKirkkaus; kirkkaus++){
       
       analogWrite(led, kirkkaus);
-      Serial.println("testi");
+      Serial.println(vaihtaja);
       delay(50);
       }
 
     }  
+  if((painonKesto > PITKA_PAINALLUS) && (pitkaPainallusHavaittu == true) && (vaihtaja % 2 == 1)){
+    kirkkaus = kirkkaus - muutos;
+      for (kirkkaus = 255; kirkkaus > tavoiteKirkkaus; kirkkaus--){
+      
+      analogWrite(led, kirkkaus);
+      Serial.println(vaihtaja);
+      delay(50);
+  }
+  }
 }
