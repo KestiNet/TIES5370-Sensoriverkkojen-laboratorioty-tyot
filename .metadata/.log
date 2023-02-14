@@ -1,0 +1,208 @@
+!SESSION 2023-02-11 17:10:17.241 -----------------------------------------------
+eclipse.buildId=4.26.0.20221201-1200
+java.version=17.0.2
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.cpp.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.cpp.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2023-02-11 17:10:40.910
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\lange'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.equinox.p2.engine 4 4 2023-02-11 17:12:33.915
+!MESSAGE An error occurred while collecting items to be installed
+!SUBENTRY 1 org.eclipse.equinox.p2.engine 4 0 2023-02-11 17:12:33.915
+!MESSAGE session context was:(profile=C__Users_lange_eclipse_cpp-2022-12_eclipse, phase=org.eclipse.equinox.internal.p2.engine.phases.Collect, operand=, action=).
+!SUBENTRY 1 org.eclipse.equinox.p2.artifact.repository 4 0 2023-02-11 17:12:33.915
+!MESSAGE No repository found containing: osgi.bundle,org.eclipse.nebula.cwt,1.1.0.202301171704
+!SUBENTRY 1 org.eclipse.equinox.p2.artifact.repository 4 0 2023-02-11 17:12:33.915
+!MESSAGE No repository found containing: osgi.bundle,org.eclipse.nebula.widgets.cdatetime,1.5.0.202301171704
+!SUBENTRY 1 org.eclipse.equinox.p2.artifact.repository 4 0 2023-02-11 17:12:33.915
+!MESSAGE No repository found containing: osgi.bundle,org.eclipse.nebula.widgets.oscilloscope,1.4.0.202301171704
+!SUBENTRY 1 org.eclipse.equinox.p2.artifact.repository 4 0 2023-02-11 17:12:33.915
+!MESSAGE No repository found containing: org.eclipse.update.feature,org.eclipse.nebula.widgets.oscilloscope.feature,1.4.0.202301171704
+!SUBENTRY 1 org.eclipse.equinox.p2.artifact.repository 4 0 2023-02-11 17:12:33.915
+!MESSAGE No repository found containing: osgi.bundle,org.eclipse.nebula.widgets.oscilloscope.source,1.4.0.202301171704
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2023-02-11 17:14:21.016
+!MESSAGE Using unsafe http transport to retrieve http://download.eclipse.org/usssdk/updates/release/latest, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2023-02-11 17:14:21.746
+!MESSAGE Using unsafe http transport to retrieve http://download.eclipse.org/usssdk/drops/release/1.2.2/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.engine 4 4 2023-02-11 17:21:07.794
+!MESSAGE An error occurred while collecting items to be installed
+!SUBENTRY 1 org.eclipse.equinox.p2.engine 4 0 2023-02-11 17:21:07.794
+!MESSAGE session context was:(profile=C__Users_lange_eclipse_cpp-2022-12_eclipse, phase=org.eclipse.equinox.internal.p2.engine.phases.Collect, operand=, action=).
+!SUBENTRY 1 org.eclipse.equinox.p2.artifact.repository 4 0 2023-02-11 17:21:07.794
+!MESSAGE No repository found containing: osgi.bundle,org.eclipse.nebula.cwt,1.1.0.202301171704
+!SUBENTRY 1 org.eclipse.equinox.p2.artifact.repository 4 0 2023-02-11 17:21:07.794
+!MESSAGE No repository found containing: osgi.bundle,org.eclipse.nebula.widgets.cdatetime,1.5.0.202301171704
+!SUBENTRY 1 org.eclipse.equinox.p2.artifact.repository 4 0 2023-02-11 17:21:07.794
+!MESSAGE No repository found containing: osgi.bundle,org.eclipse.nebula.widgets.oscilloscope,1.4.0.202301171704
+!SUBENTRY 1 org.eclipse.equinox.p2.artifact.repository 4 0 2023-02-11 17:21:07.794
+!MESSAGE No repository found containing: org.eclipse.update.feature,org.eclipse.nebula.widgets.oscilloscope.feature,1.4.0.202301171704
+!SUBENTRY 1 org.eclipse.equinox.p2.artifact.repository 4 0 2023-02-11 17:21:07.794
+!MESSAGE No repository found containing: osgi.bundle,org.eclipse.nebula.widgets.oscilloscope.source,1.4.0.202301171704
+
+!ENTRY org.eclipse.equinox.p2.core 4 0 2023-02-11 22:48:02.730
+!MESSAGE Provisioning exception
+!STACK 1
+org.eclipse.equinox.p2.core.ProvisionException: No repository found at https://download.eclipse.org/nebula/release/latest/.
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.fail(AbstractRepositoryManager.java:405)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.oomph.util.ReflectUtil.invokeMethod(ReflectUtil.java:119)
+	at org.eclipse.oomph.p2.internal.core.CachingRepositoryManager.fail(CachingRepositoryManager.java:386)
+	at org.eclipse.oomph.p2.internal.core.CachingRepositoryManager.loadRepository(CachingRepositoryManager.java:277)
+	at org.eclipse.oomph.p2.internal.core.CachingRepositoryManager$Metadata.loadRepository(CachingRepositoryManager.java:518)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:110)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:105)
+	at org.eclipse.equinox.p2.ui.LoadMetadataRepositoryJob.doLoad(LoadMetadataRepositoryJob.java:126)
+	at org.eclipse.equinox.p2.ui.LoadMetadataRepositoryJob.runModal(LoadMetadataRepositoryJob.java:110)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$1.runModal(PreloadingRepositoryHandler.java:84)
+	at org.eclipse.equinox.p2.operations.ProvisioningJob.run(ProvisioningJob.java:188)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1000 2023-02-11 22:48:02.732
+!MESSAGE No repository found at https://download.eclipse.org/nebula/release/latest/.
+
+!ENTRY org.eclipse.equinox.p2.core 4 0 2023-02-11 22:48:32.916
+!MESSAGE Provisioning exception
+!STACK 1
+org.eclipse.equinox.p2.core.ProvisionException: No repository found at https://download.eclipse.org/nebula/release/latest/.
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.fail(AbstractRepositoryManager.java:405)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.oomph.util.ReflectUtil.invokeMethod(ReflectUtil.java:119)
+	at org.eclipse.oomph.p2.internal.core.CachingRepositoryManager.fail(CachingRepositoryManager.java:386)
+	at org.eclipse.oomph.p2.internal.core.CachingRepositoryManager.loadRepository(CachingRepositoryManager.java:277)
+	at org.eclipse.oomph.p2.internal.core.CachingRepositoryManager$Metadata.loadRepository(CachingRepositoryManager.java:518)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:110)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:105)
+	at org.eclipse.equinox.p2.ui.LoadMetadataRepositoryJob.doLoad(LoadMetadataRepositoryJob.java:126)
+	at org.eclipse.equinox.p2.ui.LoadMetadataRepositoryJob.runModal(LoadMetadataRepositoryJob.java:110)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$1.runModal(PreloadingRepositoryHandler.java:84)
+	at org.eclipse.equinox.p2.operations.ProvisioningJob.run(ProvisioningJob.java:188)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1000 2023-02-11 22:48:32.916
+!MESSAGE No repository found at https://download.eclipse.org/nebula/release/latest/.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2023-02-11 22:49:45.051
+!MESSAGE Using unsafe http transport to retrieve http://eclipse.baeyens.it/update/V4/stable/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2023-02-11 22:49:59.749
+!MESSAGE Using unsafe http transport to retrieve http://eclipse.baeyens.it/update/V4/stable/artifacts.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2023-02-11 22:49:59.937
+!MESSAGE Using unsafe http transport to retrieve http://download.eclipse.org/usssdk/updates/release/latest, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2023-02-11 22:50:00.839
+!MESSAGE Using unsafe http transport to retrieve http://download.eclipse.org/usssdk/updates/release/latest/artifacts.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2023-02-11 22:50:01.064
+!MESSAGE Using unsafe http transport to retrieve http://download.eclipse.org/usssdk/updates/release/latest, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2023-02-11 22:50:01.784
+!MESSAGE Using unsafe http transport to retrieve http://download.eclipse.org/usssdk/updates/release/latest, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2023-02-11 22:50:02.251
+!MESSAGE Using unsafe http transport to retrieve http://download.eclipse.org/usssdk/updates/release/latest/artifacts.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2023-02-11 22:50:02.935
+!MESSAGE Using unsafe http transport to retrieve http://download.eclipse.org/usssdk/updates/release/latest, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2023-02-11 22:50:03.408
+!MESSAGE Using unsafe http transport to retrieve http://download.eclipse.org/usssdk/drops/release/1.2.2/artifacts.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.engine 4 4 2023-02-11 22:50:11.767
+!MESSAGE An error occurred while collecting items to be installed
+!SUBENTRY 1 org.eclipse.equinox.p2.engine 4 0 2023-02-11 22:50:11.767
+!MESSAGE session context was:(profile=C__Users_lange_eclipse_cpp-2022-12_eclipse, phase=org.eclipse.equinox.internal.p2.engine.phases.Collect, operand=, action=).
+!SUBENTRY 1 org.eclipse.equinox.p2.artifact.repository 4 0 2023-02-11 22:50:11.767
+!MESSAGE No repository found containing: osgi.bundle,org.eclipse.nebula.cwt,1.1.0.202301171704
+!SUBENTRY 1 org.eclipse.equinox.p2.artifact.repository 4 0 2023-02-11 22:50:11.767
+!MESSAGE No repository found containing: osgi.bundle,org.eclipse.nebula.widgets.cdatetime,1.5.0.202301171704
+!SUBENTRY 1 org.eclipse.equinox.p2.artifact.repository 4 0 2023-02-11 22:50:11.767
+!MESSAGE No repository found containing: osgi.bundle,org.eclipse.nebula.widgets.oscilloscope,1.4.0.202301171704
+!SUBENTRY 1 org.eclipse.equinox.p2.artifact.repository 4 0 2023-02-11 22:50:11.767
+!MESSAGE No repository found containing: org.eclipse.update.feature,org.eclipse.nebula.widgets.oscilloscope.feature,1.4.0.202301171704
+!SUBENTRY 1 org.eclipse.equinox.p2.artifact.repository 4 0 2023-02-11 22:50:11.767
+!MESSAGE No repository found containing: osgi.bundle,org.eclipse.nebula.widgets.oscilloscope.source,1.4.0.202301171704
+!SESSION 2023-02-11 22:51:09.313 -----------------------------------------------
+eclipse.buildId=4.26.0.20221201-1200
+java.version=17.0.2
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.cpp.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.cpp.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2023-02-11 22:51:20.712
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\lange'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.equinox.p2.core 4 0 2023-02-11 22:52:22.265
+!MESSAGE Provisioning exception
+!STACK 1
+org.eclipse.equinox.p2.core.ProvisionException: No repository found at https://download.eclipse.org/nebula/release/latest/.
+	at org.eclipse.equinox.internal.p2.repository.helpers.AbstractRepositoryManager.fail(AbstractRepositoryManager.java:405)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.oomph.util.ReflectUtil.invokeMethod(ReflectUtil.java:119)
+	at org.eclipse.oomph.p2.internal.core.CachingRepositoryManager.fail(CachingRepositoryManager.java:386)
+	at org.eclipse.oomph.p2.internal.core.CachingRepositoryManager.loadRepository(CachingRepositoryManager.java:277)
+	at org.eclipse.oomph.p2.internal.core.CachingRepositoryManager$Metadata.loadRepository(CachingRepositoryManager.java:518)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:110)
+	at org.eclipse.equinox.internal.p2.metadata.repository.MetadataRepositoryManager.loadRepository(MetadataRepositoryManager.java:105)
+	at org.eclipse.equinox.p2.ui.LoadMetadataRepositoryJob.doLoad(LoadMetadataRepositoryJob.java:126)
+	at org.eclipse.equinox.p2.ui.LoadMetadataRepositoryJob.runModal(LoadMetadataRepositoryJob.java:110)
+	at org.eclipse.equinox.internal.p2.ui.sdk.PreloadingRepositoryHandler$1.runModal(PreloadingRepositoryHandler.java:84)
+	at org.eclipse.equinox.p2.operations.ProvisioningJob.run(ProvisioningJob.java:188)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 1 org.eclipse.equinox.p2.metadata.repository 4 1000 2023-02-11 22:52:22.265
+!MESSAGE No repository found at https://download.eclipse.org/nebula/release/latest/.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2023-02-11 22:52:27.315
+!MESSAGE Using unsafe http transport to retrieve http://eclipse.baeyens.it/update/V4/stable/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2023-02-11 22:52:27.446
+!MESSAGE Using unsafe http transport to retrieve http://download.eclipse.org/usssdk/updates/release/latest, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2023-02-11 22:52:28.146
+!MESSAGE Using unsafe http transport to retrieve http://download.eclipse.org/usssdk/drops/release/1.2.2/content.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2023-02-11 22:53:08.373
+!MESSAGE Using unsafe http transport to retrieve http://eclipse.baeyens.it/update/V4/stable/artifacts.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2023-02-11 22:53:08.505
+!MESSAGE Using unsafe http transport to retrieve http://download.eclipse.org/usssdk/updates/release/latest, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.repository 2 0 2023-02-11 22:53:08.844
+!MESSAGE Using unsafe http transport to retrieve http://download.eclipse.org/usssdk/drops/release/1.2.2/artifacts.xml.xz, see CVE-2021-41033. Consider using https instead.
+
+!ENTRY org.eclipse.equinox.p2.engine 4 4 2023-02-11 22:53:14.327
+!MESSAGE An error occurred while collecting items to be installed
+!SUBENTRY 1 org.eclipse.equinox.p2.engine 4 0 2023-02-11 22:53:14.327
+!MESSAGE session context was:(profile=C__Users_lange_eclipse_cpp-2022-12_eclipse, phase=org.eclipse.equinox.internal.p2.engine.phases.Collect, operand=, action=).
+!SUBENTRY 1 org.eclipse.equinox.p2.artifact.repository 4 0 2023-02-11 22:53:14.327
+!MESSAGE No repository found containing: osgi.bundle,org.eclipse.nebula.cwt,1.1.0.202301171704
+!SUBENTRY 1 org.eclipse.equinox.p2.artifact.repository 4 0 2023-02-11 22:53:14.327
+!MESSAGE No repository found containing: osgi.bundle,org.eclipse.nebula.widgets.cdatetime,1.5.0.202301171704
+!SUBENTRY 1 org.eclipse.equinox.p2.artifact.repository 4 0 2023-02-11 22:53:14.327
+!MESSAGE No repository found containing: osgi.bundle,org.eclipse.nebula.widgets.oscilloscope,1.4.0.202301171704
+!SUBENTRY 1 org.eclipse.equinox.p2.artifact.repository 4 0 2023-02-11 22:53:14.327
+!MESSAGE No repository found containing: org.eclipse.update.feature,org.eclipse.nebula.widgets.oscilloscope.feature,1.4.0.202301171704
+!SUBENTRY 1 org.eclipse.equinox.p2.artifact.repository 4 0 2023-02-11 22:53:14.327
+!MESSAGE No repository found containing: osgi.bundle,org.eclipse.nebula.widgets.oscilloscope.source,1.4.0.202301171704
