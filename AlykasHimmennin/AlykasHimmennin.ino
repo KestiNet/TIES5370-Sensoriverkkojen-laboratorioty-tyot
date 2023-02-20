@@ -1,95 +1,59 @@
-#include <Toggle.h>
+const int b1 = 3; // napin pinni
+const int led = 10; // ledin pinni
+int kirkkaus = 0; // ledin kirkkaus
+int himmennys = 5; // paljonko himmennetään
+int himmennysKesto = 50; // himmentimen ajastin aika
+unsigned long viimeinenDebounceAika = 0; // viimeinen kerta kun nappia painettiin
+unsigned long debounceKesto = 5; //debounce ajastin
+bool ledPaalla = false; 
 
-const int b1 = 3;
-const int led = 10;
-byte kirkkaus;
 
-int sammuttaja;
-
-bool himmentaa;
-
-Toggle nappi = (b1);
-
-void setup(){
-  Serial.begin(9600);
+void setup() {
+  pinMode(b1, INPUT_PULLUP);
   pinMode(led, OUTPUT);
-  pinMode(b1, INPUT);
-  }
-
-
-void loop(){
-
-  nappi.poll(); //alustaa napin käyttöön
-  if (nappi.onPress()) himmentaa = !himmentaa; // Jos nappia on painettu tarkistaa himmennetäänkö vai ei
-  if (nappi.isPressed()) {
-    (himmentaa) ? kirkkaus++ : kirkkaus--; //Riippuen painokerrasta aletaan kirkastamaan tai himmentämään
-    if (kirkkaus == 255) kirkkaus = 0; // määritellään mitä tehdään tiettyinä kirkkauksina
-    else if (kirkkaus >= 253) kirkkaus = 253;
-    delay(50); //tehdään 50 millisekunnin kesto
-  }
-  analogWrite(led, kirkkaus);
-
-
 }
 
-
-
-/*
-nykyinenTila = digitalRead(b1);
-
-if (nykyinenTila != viimeinenTila) {
-    debounce = millis();
-    viimeinenTila = nykyinenTila;
-  }
-
-  if ((millis() - debounce) > DEBOUNCE_HIDASTUS) {
-    if (viimeinTasainenTila == HIGH && nykyinenTila == LOW){
-      nykyinenPainallus = millis();
-      painaa = true;
-      pitkaPainallusHavaittu = false;
-      Serial.println("painettu");
-    }else if (viimeinTasainenTila == LOW && nykyinenTila == HIGH){
-      painaa = false;
-      Serial.println("irroitettu");
-    }
-
-    if (painaa == true && pitkaPainallusHavaittu == false){
-      painonKesto = millis() - nykyinenPainallus;
-      if (painonKesto > PITKA_PAINALLUS){
-        pitkaPainallusHavaittu = true;
-
-        kirkastajaTaiHimmentaja();
-        vaihtaja++;
-        Serial.println(vaihtaja);
-      }
-    }
-    viimeinTasainenTila = nykyinenTila;
-  }
-}
-void kirkastajaTaiHimmentaja(){
-
-  if ((painonKesto > PITKA_PAINALLUS) && (pitkaPainallusHavaittu == true) && (vaihtaja % 2 == 0)){
+void loop() {
+  //tarkistaa onko nappia painettu
+  int buttonState = digitalRead(b1);
+  if (buttonState == LOW) {
     
-      kirkkaus = kirkkaus + muutos;
-      for (kirkkaus = 0; kirkkaus < tavoiteKirkkaus; kirkkaus++){
-      
-      analogWrite(led, kirkkaus);
-      Serial.println(vaihtaja);
-      delay(50);
+    if (millis() - viimeinenDebounceAika > debounceKesto) {
+      // jos ledi on pois päältä, laitetaan se 50% kirkkauteen
+      if (!ledPaalla) {
+        kirkkaus = 128;
+        ledPaalla = true;
       }
-
-    }  
-  
-  if((painonKesto > PITKA_PAINALLUS) && (pitkaPainallusHavaittu == true) && (vaihtaja % 2 == 1)){
-    kirkkaus = kirkkaus - muutos;
-      for (kirkkaus = 255; kirkkaus > tavoiteKirkkaus; kirkkaus--){
-      
+      //jos ledi on päällä, sammuta se
+      else {
+        kirkkaus = 0;
+        ledPaalla = false;
+      }
+      //päivitetään ledin kirkkaus
       analogWrite(led, kirkkaus);
-      Serial.println(vaihtaja);
-      delay(50);
+      viimeinenDebounceAika = millis();
+    }
   }
+  else {
+    //jos ledi on päällä, himmennä
+    if (ledPaalla) {
+      kirkkaus = kirkkaus + himmennys;
+      kirkkaus = constrain(kirkkaus, 0, 255);
+      analogWrite(led, kirkkaus);
+      delay(himmennysKesto);
+      
+     
+    }
+    // 
+    else if (kirkkaus > 0) {
+      kirkkaus = kirkkaus - himmennys;
+      kirkkaus = constrain(kirkkaus, 0, 255);
+      analogWrite(led, kirkkaus);
+      delay(himmennysKesto);
+      // jos kirkkaus on 0 niin sammuta ledi
+      if (kirkkaus == 0) {
+        ledPaalla = false;
+      }
+    }
   }
 }
-
-
-*/
