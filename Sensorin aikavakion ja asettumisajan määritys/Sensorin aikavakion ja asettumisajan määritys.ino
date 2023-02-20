@@ -19,15 +19,23 @@ ja asettumisajan (=aika, jolloin mittausarvo on asettunut +/- 2%:n sisään lopu
 */
 
 const int B1 = 3;
+const int valoVastus = A0;
+const int led = 10;
 
 
 
 void setup() {
-  // put your setup code here, to run once:
-
+  pinMode(valoVastus, INPUT);
+  pinMode(led, OUTPUT)
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  value = analogRead(valoVastus);
 
+  if (value > 25){
+    digitalWrite(led, LOW);
+  }else{
+    digitalWrite(led, HIGH);
+  }
+  delay(500);
 }
