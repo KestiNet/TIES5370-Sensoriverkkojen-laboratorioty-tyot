@@ -18,24 +18,42 @@ Muodosta alla olevan kuvan näköinen xy-kaavio, eli ADC-arvon riippuvuus ajasta
 ja asettumisajan (=aika, jolloin mittausarvo on asettunut +/- 2%:n sisään lopullisesta arvostaan). Kommentoi koodisi.
 */
 
-const int B1 = 3;
+//const int b1 = 3;
 const int valoVastus = A0;
 const int led = 10;
 
+int valoArvo;
 
+volatile byte napinPainallus = false;
+//bool viimeinenNapinPainallus = false;
 
 void setup() {
+  Serial.begin(9600);
   pinMode(valoVastus, INPUT);
-  pinMode(led, OUTPUT)
+  pinMode(led, OUTPUT);
+  attachInterrupt(digitalPinToInterrupt(3), kaynnistaja, CHANGE);
 }
 
 void loop() {
-  value = analogRead(valoVastus);
+  if (napinPainallus == true){
+    valoArvo = analogRead(valoVastus);
+    Serial.println(valoArvo);
 
-  if (value > 25){
+    if (valoArvo > 25){
     digitalWrite(led, LOW);
   }else{
     digitalWrite(led, HIGH);
+    Serial.print("Intensity= ");
+    Serial.println(valoArvo);
   }
   delay(500);
+    
+  }
 }
+  void kaynnistaja(){
+    napinPainallus = !napinPainallus;
+  }
+
+
+
+
