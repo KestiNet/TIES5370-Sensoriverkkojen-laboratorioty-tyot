@@ -1,10 +1,4 @@
 /*
-Hyvin usein mikrokontrolleripohjaiset mittaussovellukset ovat paristokäyttöisiä ja tämän takia paristosta saatavaa virtaa koetetaan säästää. 
-Monet mittaussovellukset toimivat niin, että niiden mittaussekvenssi on hyvin harva, esim. kerran tunnissa. Tällöin sensorista kannattaa katkaista sähköt pois, jotta se ei turhaan kuluttaisi paristoa ja kytkeä virrat päälle vain mitattaessa. 
-Mutta kun kytketään sensoriin virrat päälle, niin kuinka nopeasti voidaan mittaus aloittaa? Sitä tutkitaan tässä harjoituksessa.
-Työssä käytetään valovastusta (analoginen anturi), jonka vastusarvo siis muuttuu valoisuuden mukaan. Valovastuksen kanssa on sarjassa vakio 10kΩ vastus ja sen rinnalla on 100nF kondensaattori. 
-Kun kontrollerin linja nr 13 asetetaan ykköstilaan (HIGH) niin silloin anturillemme kytkeytyy 5V:n jännite, ja virta kulkee vakiovastuksen ja valovastuksen läpi. Vakiovastuksen ja valovastuksen liitoskohdsata mitataan jännitettä kontrollerin A0 pinnin kautta. 
-Tätä jännitettä verrataan Arduinon referenssijännitteeseen ja lasketaan sille digitaalinen arvo, joka on välillä 0-1023 (arvo 1023 vastaa 5V ja esim. arvo 512 vastaa 2.5V).
 Eli tee mittaussovellus, joka toimii seuraavasti:
 - pääohjelmassa tarkistat, onko nappia B1 painettu
 - jos on niin kytke virrat anturiin
@@ -18,24 +12,26 @@ Muodosta alla olevan kuvan näköinen xy-kaavio, eli ADC-arvon riippuvuus ajasta
 ja asettumisajan (=aika, jolloin mittausarvo on asettunut +/- 2%:n sisään lopullisesta arvostaan). Kommentoi koodisi.
 */
 
-//const int b1 = 3;
+const int b1 = 3;
 const int valoVastus = A0;
 const int led = 10;
 
 int valoArvo;
 
-volatile byte napinPainallus = false;
+volatile byte napinPainallus;
 //bool viimeinenNapinPainallus = false;
 
 void setup() {
   Serial.begin(9600);
+  pinMode(b1, CHANGE);
   pinMode(valoVastus, INPUT);
   pinMode(led, OUTPUT);
-  attachInterrupt(digitalPinToInterrupt(3), kaynnistaja, CHANGE);
 }
 
 void loop() {
-  if (napinPainallus == true){
+  napinPainallus = digitalRead(b1);
+
+  if (napinPainallus == LOW){
     valoArvo = analogRead(valoVastus);
     Serial.println(valoArvo);
 
@@ -50,9 +46,7 @@ void loop() {
     
   }
 }
-  void kaynnistaja(){
-    napinPainallus = !napinPainallus;
-  }
+  
 
 
 
