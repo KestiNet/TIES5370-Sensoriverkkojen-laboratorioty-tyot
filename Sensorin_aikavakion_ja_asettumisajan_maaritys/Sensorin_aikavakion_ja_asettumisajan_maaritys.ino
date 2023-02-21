@@ -15,11 +15,14 @@ ja asettumisajan (=aika, jolloin mittausarvo on asettunut +/- 2%:n sisään lopu
 const int b1 = 3;
 const int valoVastus = A0;
 const int led = 10;
+//https://reference.arduino.cc/reference/en/language/variables/data-types/array/
+int mittausArvot[50];
+
+int aika = 0;
 
 int valoArvo;
 
 volatile byte napinPainallus;
-//bool viimeinenNapinPainallus = false;
 
 void setup() {
   Serial.begin(9600);
@@ -32,6 +35,7 @@ void loop() {
   napinPainallus = digitalRead(b1);
 
   if (napinPainallus == LOW){
+    aika = millis();
     valoArvo = analogRead(valoVastus);
     Serial.println(valoArvo);
 
