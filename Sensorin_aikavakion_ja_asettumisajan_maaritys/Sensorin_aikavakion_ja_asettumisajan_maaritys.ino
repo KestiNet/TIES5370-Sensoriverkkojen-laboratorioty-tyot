@@ -39,17 +39,15 @@ void loop() {
     valoArvo = analogRead(valoVastus);
     Serial.println(valoArvo);
 
-    if (valoArvo > 25){
-    digitalWrite(led, LOW);
-  }else{
-    digitalWrite(led, HIGH);
-    Serial.print("Intensity= ");
-    Serial.println(valoArvo);
-  }
-  delay(500);
+    //for (int i = 0; i < mittausArvot; i++) {
+     // mittausArvot[i] = valoArvo;
+}
+
+  
+  delay(50);
     
   }
-}
+
   
 
 
