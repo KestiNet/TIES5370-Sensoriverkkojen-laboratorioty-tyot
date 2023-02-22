@@ -21,6 +21,7 @@ int mittausArvot[50];
 int aika = 0;
 
 int valoArvo;
+byte arrayIndeksi = 0;
 
 volatile byte napinPainallus;
 
@@ -36,20 +37,34 @@ void loop() {
 
   if (napinPainallus == LOW){
     aika = millis();
-    valoArvo = analogRead(valoVastus);
-    Serial.println(valoArvo);
+    //Serial.println(valoArvo);
+    //mittausArvot[] = valoArvo;
+    for(int i = 0; i < 50; i++){
+        mittausArvot[i] = analogRead(valoVastus);
+        //Serial.print(arrayIndeksi);
+        Serial.println(mittausArvot[i]);
 
-    //for (int i = 0; i < mittausArvot; i++) {
-     // mittausArvot[i] = valoArvo;
+    
+          
+    }
+    arrayIndeksi++;
+     
+    }
+     //tulosta();
+
+
+  
+  delay(500);
+    
+  
+
 }
 
-  
-  delay(50);
-    
-  }
 
-  
-
-
-
+void tulosta(){
+     for (int i = 0; i < 50; i++) {
+    Serial.print("arrayn sisalto: ");
+    Serial.println(mittausArvot[i]); 
+}
+}
 
