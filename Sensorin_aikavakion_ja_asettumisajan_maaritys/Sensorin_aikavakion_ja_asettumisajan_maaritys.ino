@@ -19,6 +19,8 @@ const int led = 10;
 int mittausArvot[50];
 
 int aika = 0;
+int loppuAika = 0;
+int kierrosAika = 0;
 
 int valoArvo;
 byte arrayIndeksi = 0;
@@ -41,14 +43,18 @@ void loop() {
     //mittausArvot[] = valoArvo;
     for(int i = 0; i < 50; i++){
         mittausArvot[i] = analogRead(valoVastus);
+        kierrosAika = millis();
         //Serial.print(arrayIndeksi);
+        Serial.print("kierrosaika: ");
+        Serial.println(kierrosAika);
         Serial.println(mittausArvot[i]);
+      
 
     
           
     }
-    arrayIndeksi++;
-     
+     Serial.print("aika: ");
+     Serial.println(aika);
     }
      //tulosta();
 
