@@ -15,12 +15,12 @@ ja asettumisajan (=aika, jolloin mittausarvo on asettunut +/- 2%:n sisään lopu
 const int b1 = 3;
 const int valoVastus = A0;
 const int led = 10;
-//https://reference.arduino.cc/reference/en/language/variables/data-types/array/
 int mittausArvot[50];
 
 int aika = 0;
 int loppuAika = 0;
 int kierrosAika = 0;
+int kierros = 0;
 
 int valoArvo;
 byte arrayIndeksi = 0;
@@ -34,32 +34,28 @@ void setup() {
   pinMode(led, OUTPUT);
 }
 
+/*
+//tarkistetaan onko nappia painettu
+//jos nappi on painettu, otetaan talteen aika ja aletaan tallentamaan mittausarvot taulukkoon ja tulostetaan tarvittavat
+*/
 void loop() {
-  napinPainallus = digitalRead(b1);
+  napinPainallus = digitalRead(b1); 
 
-  if (napinPainallus == LOW){
+  if (napinPainallus == LOW){ 
     aika = millis();
-    //Serial.println(valoArvo);
-    //mittausArvot[] = valoArvo;
+   
     for(int i = 0; i < 50; i++){
         mittausArvot[i] = analogRead(valoVastus);
         kierrosAika = millis();
-        //Serial.print(arrayIndeksi);
         Serial.print("kierrosaika: ");
         Serial.println(kierrosAika);
+        
         Serial.println(mittausArvot[i]);
-      
-
-    
-          
+        delay(100);
     }
      Serial.print("aika: ");
-     Serial.println(aika);
-    }
-     //tulosta();
-
-
-  
+     Serial.println(kierrosAika - aika);
+    }  
   delay(500);
     
   
@@ -67,10 +63,4 @@ void loop() {
 }
 
 
-void tulosta(){
-     for (int i = 0; i < 50; i++) {
-    Serial.print("arrayn sisalto: ");
-    Serial.println(mittausArvot[i]); 
-}
-}
 
