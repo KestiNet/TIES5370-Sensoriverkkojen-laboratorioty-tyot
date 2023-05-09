@@ -20,9 +20,30 @@ void setup() {
 
 void keskeytysISR(){
   lippu = 1;
+  Serial.println("lippu toimii");
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  if(lippu == 1){
+    Serial.println("iffi toimii");
+    aloitusAika = micros();
+    digitalWrite(powerPin, HIGH);
 
+    for(int i; i < 50; i++){
+      mittausarvot[i]=analogRead(A0);
+      delayMicroseconds(30);
+      loppuAika = micros();
+      Serial.println(loppuAika - aloitusAika);
+
+    }
+    
+
+  }
+for (int i; i < 50; i++){
+  Serial.print("Measurement ");
+    Serial.print(i);
+    Serial.print(": ");
+    Serial.println(mittausarvot[i]);
+  }
+delay(5000);
 }
