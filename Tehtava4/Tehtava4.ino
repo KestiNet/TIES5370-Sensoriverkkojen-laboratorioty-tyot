@@ -24,26 +24,24 @@ void keskeytysISR(){
 }
 
 void loop() {
-  if(lippu == 1){
+   if (lippu == 1) {
     Serial.println("iffi toimii");
     aloitusAika = micros();
     digitalWrite(powerPin, HIGH);
 
-    for(int i; i < 50; i++){
-      mittausarvot[i]=analogRead(A0);
-      delayMicroseconds(30);
+    for (int i = 0; i < 50; i++) {
+      mittausarvot[i] = analogRead(A0);
       loppuAika = micros();
       Serial.println(loppuAika - aloitusAika);
-
+      delayMicroseconds(30);
     }
-    
 
+    for (int i = 0; i < 50; i++) {
+      Serial.print(i);
+      Serial.print(": ");
+      Serial.println(mittausarvot[i]);
+    }
+
+    lippu = 0;  // Reset the flag
   }
-for (int i; i < 50; i++){
-  Serial.print("Measurement ");
-    Serial.print(i);
-    Serial.print(": ");
-    Serial.println(mittausarvot[i]);
-  }
-delay(5000);
 }
