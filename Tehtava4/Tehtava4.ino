@@ -3,7 +3,7 @@ int powerPin = 13;
 int analogPin = A0;
 
 byte lippu;
-
+unsigned long mittausAika[50];
 unsigned long mittausarvot[50];
 float aloitusAika;
 float loppuAika;
@@ -26,22 +26,39 @@ void keskeytysISR(){
 void loop() {
    if (lippu == 1) {
     Serial.println("iffi toimii");
-    aloitusAika = micros();
+    aloitusAika = millis();
     digitalWrite(powerPin, HIGH);
 
     for (int i = 0; i < 50; i++) {
       mittausarvot[i] = analogRead(A0);
-      loppuAika = micros();
-      Serial.println(loppuAika - aloitusAika);
-      delayMicroseconds(30);
+      loppuAika = millis();
+      mittausAika[i] = loppuAika - aloitusAika;
+      //Serial.println(mittausAika[i]);
+      delay(50);
     }
+    
+ 
 
     for (int i = 0; i < 50; i++) {
       Serial.print(i);
       Serial.print(": ");
-      Serial.println(mittausarvot[i]);
+      Serial.print(mittausarvot[i]);
+      Serial.print(", ");
+      Serial.print(mittausAika[i]);
+      Serial.println(" ms");
     }
-
-    lippu = 0;  // Reset the flag
+    unsigned long summa = 0;
+    for (int i = 0; i < 50; i++) {
+      summa += mittausAika[i];
+    }
+    Serial.print("Yksittäisten mittausten summa: ");
+    Serial.println(summa);
+   /* for (int i = 0; i < 50; i++) {
+      Serial.print(i);
+      Serial.print(": ");
+      Serial.println(mittausarvot[i]);
+    }*/
+    digitalWrite(powerPin, LOW);
+    lippu = 0; 
   }
 }
