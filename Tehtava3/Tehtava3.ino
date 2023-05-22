@@ -1,57 +1,56 @@
-// määäritellään kaikki pinnit ja painikkeet
-
-int led = 10;
-int kirkkaus = 0;
-int muutos = 5;
-volatile bool lippu1 = false;
 int b1 = 3;
-int b2 = 2;
-const unsigned long intervalli = 50;
-unsigned long aiempiAika = 0;
-int napinTila = 0;
+int led = 10;
+int tila = 0;
+int ledinTila = 0;
+int maksimi = 255;
+int puolikas = 127;
+int viive = 20;
+int muutos = 8;
+signed int kirkasta = 0;
+int painike = 2;
+int keskeytysViive = 100;
 
-//määritellään keskeytykset ja pinmode ledille
-void setup(){
-    attachInterrupt(digitalPinToInterrupt(b1), kirkastus , FALLING);
-    pinMode(led, OUTPUT);
-    
-  
+void setup() {
+  attachInterrupt(digitalPinToInterrupt(b1), kirkastus, FALLING);
+  pinMode(led, OUTPUT);
+  pinMode(b1, INPUT);
 }
 
-void kirkastus(){
-  lippu1 = true;
+void kirkastus() {
+  tila = 1;
+  int tuloAika = millis();
 
+  if (kirkasta == 0) {
+    kirkasta = 1;
+  } else {
+    kirkasta = 0;
+  }
+  delay(nykyinenAika - tuloAika > 100); 
 }
-
-
 
 void loop() {
-
-//Serial.println(napinTila);
-if (digitalRead(b1) == LOW){
-  if(millis() - aiempiAika < 1000){
-    kirkkaus += 128;
-    Serial.println("nopea paino toimii");
-    if(kirkkaus > 255){
-      kirkkaus = 255;
-    }
-  }
-}
-/*
-  //Jos keskeytys on tosi ja nappi b1 pohjassa kirkastaa ledia
-  if ((lippu1 == true) && (digitalRead(b1) == LOW )){
-    kirkkaus += muutos;
-    if (kirkkaus >250){
-      kirkkaus = 255;
+  if (tila) {
+    if (digitalRead(b1) == LOW && ledinTila == 0) {
+      ledinTila = puolikas;
+      analogWrite(led, ledinTila);
     }
 
-    analogWrite(led,kirkkaus);
-    Serial.println(kirkkaus);
-    delay(50);
-  } else {
-    lippu1 = false;
+    if (digitalRead(b1) == LOW && ledinTila > 0) {
+      ledinTila = 0;
+      analogWrite(led, ledinTila);
+    }
+
+    while (digitalRead(b1) == HIGH && ledinTila < 255 && kirkasta == 1) {
+      ledinTila += muutos;
+      analogWrite(led, ledinTila);
+      delay(viive);
+    }
+
+    while (digitalRead(b1) == HIGH && ledinTila > 7 && kirkasta == 0) {
+      ledinTila -= muutos;
+      analogWrite(led, ledinTila);
+      delay(viive);
+    }
   }
-*/
-  
- 
+  tila = 0;
 }
